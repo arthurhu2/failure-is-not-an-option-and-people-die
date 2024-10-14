@@ -95,10 +95,15 @@ public:
    */
   Stack &reverse() {
     // Swap (i) with (stackTop - i - 1)
-    const auto limit = stackTop / 2;
-    for (uint32_t i = 0; i < limit; ++i) {
-      std::swap(stack[i], stack[stackTop - i - 1]);
+//    const auto limit = stackTop / 2;
+//    for (uint32_t i = 0; i < limit; ++i) {
+//      std::swap(stack[i], stack[stackTop - i - 1]);
+//    }
+    auto newBuffer = std::makeunique<T[]>(size);
+    for (auto i = 0; i < stackTop; ++i) {
+      newBuffer[i] = stack[stackTop - 1 - i];
     }
+    std::swap(newBuffer, stack);
     return *this;
   }
 
